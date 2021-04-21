@@ -1,0 +1,48 @@
+<!DOCTYPE html >
+<html>
+<head>
+<title>WiFi controlled LED</title>
+<script src="jquery.js"></script>
+
+</head>
+<body>
+<h2> <i> Shakti- ESP8266 </i> </h2>
+<h4> <i> Enter the IP address of ESP8266 </i> </h4>
+<div style="margin: 0; width:400px; height:30px;">
+<FORM NAME="form" ACTION="" METHOD="GET">
+ESP8266 IP Address:
+<INPUT TYPE="text" NAME="inputbox" VALUE="" />
+</FORM>
+</div>
+<h3> Click to toggle LED! </h3>
+<input type="button" NAME="butname" value="Turn ON LED" />
+<p>STATUS: LED is OFF!</p>
+</body>
+<script>
+$.ajaxSetup({timeout:1000});
+btn = document.querySelector('input[name="butname"]');
+txt = document.querySelector('p');
+btn.addEventListener('click', led1);
+
+function led1()
+{
+	var val1 = 'OFF';
+	if (btn.value === 'Turn OFF LED') 
+	{
+	btn.value = 'Turn ON LED';
+	val1 = 'OFF';
+	txt.textContent = 'STATUS: LED is OFF!';
+	} 
+	else 
+	{
+    	btn.value = 'Turn OFF LED';
+	val1 = 'ON';
+    	txt.textContent = 'STATUS: LED is ON!';
+	}
+	TextVar = form.inputbox.value;
+	ArduinoVar = "http://" + TextVar + ":80/";
+	$.get( ArduinoVar, {led: val1})	;
+	{Connection: close};
+}
+</script>
+</html>
