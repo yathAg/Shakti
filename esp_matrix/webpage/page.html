@@ -1,0 +1,61 @@
+<!DOCTYPE html >
+<html>
+<head>
+<title>shakti-matrix</title>
+<script src="jquery.js"></script>
+
+</head>
+<body>
+<h2> <i> Shakti- ESP8266 </i> </h2>
+<h4> <i> Enter the IP address of ESP8266 </i> </h4>
+
+<div style="margin: 0; width:400px; height:30px;">
+<FORM NAME="form" ACTION="" METHOD="GET">
+ESP8266 IP Address:<br>
+<INPUT TYPE="text" NAME="inputbox" VALUE="192.168.1." />
+
+<br><br>x-axis<br>
+<INPUT TYPE="text" NAME="xaxis" VALUE="0" />
+
+<br><br>y-axis<br>
+<INPUT TYPE="text" NAME="yaxis" VALUE="0" />
+
+</FORM>
+</div>
+
+<br>
+<br><br><br><br><br><br><br><br>	
+<h3> Click to toggle matrix! </h3>
+<input type="button" NAME="butname" value="send" />
+<p>send</p>
+<br>
+<br>
+<br>
+<p>data format-     ?xaxis=0&yaxis=0</p>	
+</body>
+
+<script>
+$.ajaxSetup({timeout:1000});
+btn = document.querySelector('input[name="butname"]');
+txt = document.querySelector('p');
+btn.addEventListener('click', led1);
+
+let count = 0;
+
+
+function led1()
+{
+	count++;
+    	txt.textContent = 'sent-'+count;
+	
+	x = form.xaxis.value;
+	y = form.yaxis.value;
+	
+	TextVar = form.inputbox.value;
+	ArduinoVar = "http://" + TextVar + ":80/";
+	$.get( ArduinoVar, {xaxis:x,yaxis:y})	;
+	
+	{Connection: close};
+}
+</script>
+</html>
